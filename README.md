@@ -12,7 +12,7 @@ A kanban board tool to record and track tasks.
 ### Install
 
 ```js
-git clone [git-url]
+git clone `https://github.com/JuruSteve/my-kanban-board.git`
 
 yarn install
 
