@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import { connect, useDispatch } from "react-redux";
+import "./App.css";
+import { showItems } from "./actions";
 
-function App() {
+function App({ boards, loading }) {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    // Dispatch action to fetch kanban boards
+    dispatch(showItems());
+  }, [dispatch]);
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        {loading && <h2>Loading....</h2>}
+        <ul>
+          {boards ? (
+            Object.entries(boards).map((board) => {
+              return <li key={board[0]}>{board[1].name}</li>;
+            })
+          ) : (
+            <h2>No Boards</h2>
+          )}
+        </ul>
       </header>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = ({ kanban }) => {
+  return {
+    boards: kanban.boards,
+    loading: kanban.loading,
+  };
+};
+
+export default connect(mapStateToProps, { showItems })(App);
