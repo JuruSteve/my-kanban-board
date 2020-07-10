@@ -1,22 +1,22 @@
-import uuid from "uuid/v4";
+import { v4 as uuidv4 } from "uuid";
 
 const itemsData = [
   {
-    id: uuid(),
+    id: uuidv4(),
     title: "Set up action creators",
     content:
       "Write action creators for fetching tasks(items) for all states. (Success, Failure, Errors)",
     tags: [],
   },
   {
-    id: uuid(),
+    id: uuidv4(),
     title: "Set up Sagas for flow control",
     content:
       "Write Sagas to control the flow of fetching, adding, and moving tasks(items).",
     tags: [],
   },
   {
-    id: uuid(),
+    id: uuidv4(),
     title: "Unit test Sagas",
     content: "Write tests for all the sagas to ensure reliability",
     tags: [],
@@ -24,19 +24,19 @@ const itemsData = [
 ];
 
 export const store = {
-  [uuid()]: {
+  [uuidv4()]: {
     name: "Backlog",
     items: itemsData,
   },
-  [uuid()]: {
+  [uuidv4()]: {
     name: "Todo",
     items: [],
   },
-  [uuid()]: {
+  [uuidv4()]: {
     name: "In Progress",
     items: [],
   },
-  [uuid()]: {
+  [uuidv4()]: {
     name: "Done",
     items: [],
   },
