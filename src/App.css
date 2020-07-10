@@ -1,4 +1,7 @@
 .App {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
   text-align: center;
 }
 
@@ -14,14 +17,17 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: #2a4279;
+  min-height: 10vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(10px + 1vmin);
   color: white;
+}
+
+.App-header h1 {
+  margin: 0;
 }
 
 .App-link {
@@ -35,4 +41,37 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.board-wrapper {
+  background-image: url(https://images.unsplash.com/photo-1495667789375-0ea23c94f110?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1355&q=80);
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  min-height: 90vh;
+  position: relative;
+}
+
+.board-view {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-around;
+  top: 50px;
+  left: 80px;
+  position: absolute;
+}
+
+footer {
+  height: 100%;
+  min-height: 5vh;
+  background-color: #275b7c;
+  color: white;
+}
+
+footer p {
+  margin: 40px auto;
 }

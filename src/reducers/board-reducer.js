@@ -2,6 +2,8 @@ import {
   SHOW_ITEMS,
   SHOW_ITEMS_SUCCESS,
   SHOW_ITEMS_FAILED,
+  ADD_ITEM,
+  ADD_ITEM_SUCCESS,
 } from "../constants";
 
 const initialState = {
@@ -10,8 +12,8 @@ const initialState = {
   errors: false,
   errorMessages: [],
 };
-export default (state = initialState, action) => {
-  switch (action.type) {
+export default (state = initialState, { type, payload }) => {
+  switch (type) {
     case SHOW_ITEMS:
       return {
         ...state,
@@ -21,7 +23,7 @@ export default (state = initialState, action) => {
     case SHOW_ITEMS_SUCCESS:
       return {
         ...state,
-        boards: action.payload.boards,
+        boards: payload.boards,
         loading: false,
       };
 
@@ -30,9 +32,25 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         errors: true,
-        errorMessages: [...action.payload.error],
+        errorMessages: [...payload.error],
       };
 
+    case ADD_ITEM:
+      return {
+        ...state,
+      };
+
+    case ADD_ITEM_SUCCESS:
+      return {
+        ...state,
+        boards: {
+          ...state.boards,
+          [payload.boardId]: {
+            ...state.boards[payload.boardId],
+            items: [...state.boards[payload.boardId].items, payload.newItem],
+          },
+        },
+      };
     default:
       return state;
   }
