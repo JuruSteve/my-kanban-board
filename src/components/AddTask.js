@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import { addItem } from "../actions";
+import { addItem, addItemFailed } from "../actions";
 import "./styles.css";
-const AddTask = ({ boardId }) => {
+const AddTask = ({ boardId, errors, errorMessage }) => {
   const dispatch = useDispatch();
   const [formValues, setFormValues] = useState({
     title: "",
@@ -17,12 +17,21 @@ const AddTask = ({ boardId }) => {
 
   const onSubmission = (e) => {
     e.preventDefault();
+    if (formValues.title === "") {
+      dispatch(addItemFailed({ errorMsg: "Please enter a title", boardId }));
+      return;
+    }
     dispatch(addItem({ formValues, boardId }));
     setFormValues({ title: "" });
   };
 
   return (
     <div className="add-task-container">
+      {errors && errorMessage.boardId === boardId ? (
+        <div className="error">
+          <p>{errorMessage.err}</p>
+        </div>
+      ) : null}
       <form onSubmit={onSubmission}>
         <input
           type="text"
@@ -36,4 +45,11 @@ const AddTask = ({ boardId }) => {
   );
 };
 
-export default connect(null, { addItem })(AddTask);
+const mapStateToProps = ({ kanban }) => {
+  return {
+    errors: kanban.errors,
+    errorMessage: kanban.errorMessage,
+  };
+};
+
+export default connect(mapStateToProps, { addItem })(AddTask);

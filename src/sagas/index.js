@@ -1,7 +1,8 @@
-import { all, takeEvery, call, take } from "redux-saga/effects";
+import { all, takeEvery, takeLatest, call, take } from "redux-saga/effects";
 import {
   SHOW_ITEMS,
   ADD_ITEM,
+  ADD_ITEM_FAILED,
   // SHOW_ITEMS_SUCCESS,
   // SHOW_ITEMS_FAILED,
   //   ADD_ITEM,
@@ -10,7 +11,7 @@ import {
   //   MOVE_ITEM,
 } from "../constants";
 import { fetchBoards } from "./board-saga";
-import { addItemToBoard } from "./items-saga";
+import { addItemToBoard, throwError } from "./items-saga";
 
 export const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
@@ -21,6 +22,8 @@ function* watchBoardSaga() {
 
 function* watchItemsSaga() {
   yield takeEvery(ADD_ITEM, addItemToBoard);
+  yield take(ADD_ITEM_FAILED);
+  yield call(throwError);
 }
 
 export default function* rootSaga() {

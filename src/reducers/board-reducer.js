@@ -4,13 +4,14 @@ import {
   SHOW_ITEMS_FAILED,
   ADD_ITEM,
   ADD_ITEM_SUCCESS,
+  ADD_ITEM_FAILED,
 } from "../constants";
 
 const initialState = {
   boards: [],
   loading: false,
   errors: false,
-  errorMessages: [],
+  errorMessage: {},
 };
 export default (state = initialState, { type, payload }) => {
   switch (type) {
@@ -49,6 +50,16 @@ export default (state = initialState, { type, payload }) => {
             ...state.boards[payload.boardId],
             items: [...state.boards[payload.boardId].items, payload.newItem],
           },
+        },
+      };
+
+    case ADD_ITEM_FAILED:
+      return {
+        ...state,
+        errors: true,
+        errorMessage: {
+          err: payload.error.msg,
+          boardId: payload.error.boardId,
         },
       };
     default:

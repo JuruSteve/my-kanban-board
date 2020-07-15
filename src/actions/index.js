@@ -51,10 +51,13 @@ export const addItemSuccess = (newStore) => {
   };
 };
 
-export const addItemFailed = () => {
+export const addItemFailed = (err) => {
   return {
     type: ADD_ITEM_FAILED,
-    payload: { errors: true, error: "Failed to add item to board" },
+    payload: {
+      errors: true,
+      error: { msg: err.errorMsg, boardId: err.boardId },
+    },
   };
 };
 

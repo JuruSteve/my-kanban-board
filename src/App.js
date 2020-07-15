@@ -4,7 +4,7 @@ import "./App.css";
 import { showItems } from "./actions";
 import SingleBoard from "./components/SingleBoard";
 
-function App({ boards, loading }) {
+function App({ boards, loading, errors, errorMessage }) {
   const dispatch = useDispatch();
   useEffect(() => {
     // Dispatch action to fetch kanban boards
@@ -17,6 +17,11 @@ function App({ boards, loading }) {
       </header>
       <section className="board-wrapper">
         {loading && <h2>Loading....</h2>}
+        {/* {errors ? (
+          <div className="error">
+            <p>{errorMessage}</p>
+          </div>
+        ) : null} */}
         <ul className="board-view">
           {boards ? (
             Object.entries(boards).map((board) => {
@@ -39,6 +44,7 @@ const mapStateToProps = ({ kanban }) => {
     boards: kanban.boards,
     loading: kanban.loading,
     errors: kanban.errors,
+    errorMessage: kanban.errorMessage,
   };
 };
 
